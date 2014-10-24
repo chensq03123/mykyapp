@@ -25,11 +25,16 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
 import com.example.ggg.R;
 import com.hustunique.Adapters.MainListAdapter;
+import com.hustunique.Utils.Main_item;
 
 public class MainActivity extends ActionBarActivity {
 
 	
 	private SwipeMenuListView mainlist;
+    private Main_item listitems,head,p1,temp_head,temp_currnext,temp_currpa;
+    //private ArrayList<Map<String,String>> list;
+    private ArrayList<Main_item> list;
+    MainListAdapter adapter;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,14 +76,27 @@ public class MainActivity extends ActionBarActivity {
 			}
 		};
 		
-		  ArrayList<Map<String,String>> list=new ArrayList<Map<String,String>>();
+		 list=new ArrayList<Main_item>();
 	        for(int i=0;i<20;i++){
 	        	HashMap<String, String> map=new HashMap<String, String>();
-	        	map.put(String.valueOf(i),"");
-	        	list.add(map);
+	        	map.put("bookname",String.valueOf(i));
+                if(i==0){
+                    head=p1=listitems=new Main_item();
+                    p1.item=map;
+                }else{
+                    listitems=new Main_item();
+                    listitems.item=map;
+                    p1.next=listitems;
+                    p1=listitems;
+                }
 	        }
+            p1=head;
+            while(p1!=null){
+                list.add(p1);
+                p1=p1.next;
+            }
 	        
-	        MainListAdapter adapter=new MainListAdapter(MainActivity.this, list);
+	        adapter=new MainListAdapter(MainActivity.this, list);
 	        mainlist.setAdapter(adapter);
 	        mainlist.setOnItemClickListener(new OnItemClickListener() {
 
@@ -88,7 +106,7 @@ public class MainActivity extends ActionBarActivity {
 					// TODO Auto-generated method stub
 					Intent intent=new Intent(MainActivity.this,BooksDetailActivity.class);
 					startActivity(intent);
-					Toast.makeText(MainActivity.this, "itemclick", 1000).show();
+					Toast.makeText(MainActivity.this, "itemclick", 2000).show();
 				}
 			});
 	        mainlist.setMenuCreator(creator);
@@ -97,10 +115,37 @@ public class MainActivity extends ActionBarActivity {
 			@Override
 			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
 				// TODO Auto-generated method stub
+                switch(index){
+                    case 0:Popup(position);break;
+                    case 1:break;
+                }
+
 				return false;
 			}
 		});
     }
+
+    private void Popup(int index){
+         temp_currpa=list.get(index-1);
+         temp_currnext=list.get(index).next;
+        temp_currpa.next=temp_currnext;
+        temp_head=list.get(index);
+        temp_head.next=head;
+        head=temp_head;
+        p1=head;
+        list.clear();
+        while(p1!=null){
+            list.add(p1);
+            p1=p1.next;
+        }
+        adapter.notifyDataSetChanged();
+
+    }
+
+    private void Delete(int index){
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

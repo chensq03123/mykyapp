@@ -1,0 +1,113 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.hustunique.kyplanningapp.MainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:showDividers="end"
+        android:orientation="horizontal" >
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <com.hustunique.Views.MyCircle
+                android:layout_width="50dp"
+               	android:layout_marginTop="20dp"
+               	android:layout_marginLeft="25dp"
+               	android:layout_marginBottom="20dp"
+                android:layout_height="50dp" >
+            </com.hustunique.Views.MyCircle>
+			
+            <TextView 
+                android:id="@+id/progress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="14dp"
+                android:textColor="#00e5ee"
+                android:textSize="24sp"
+                android:text="20%"/>
+            
+            <TextView 
+                android:id="@+id/chprogress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|center"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="14dp"
+                android:textColor="#00e5ee"
+                android:text="2/10"/>
+            
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" 
+            android:gravity="center|center_vertical">
+			<TextView 
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
+                android:textSize="22sp"
+                android:text="Oct.1" />
+				
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+				
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                     android:textSize="18sp"
+                    android:text="距离考研还有" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#00e5ee"
+                     android:textSize="23sp"
+                    android:text="210" />
+					
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:textSize="18sp"
+                    android:text="天" />
+            </LinearLayout>
+            <TextView 
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_weight="1"/>
+        </LinearLayout>
+        
+    
+        
+    </LinearLayout>
+		<ImageView 
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="2dp"
+	    	android:background="#eee"/>
+        
+        <com.baoyz.swipemenulistview.SwipeMenuListView
+            android:id="@+id/main_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></com.baoyz.swipemenulistview.SwipeMenuListView>
+    
+</LinearLayout><!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/res/layout/activity_main.xml -->

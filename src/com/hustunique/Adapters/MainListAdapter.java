@@ -12,14 +12,15 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hustunique.Utils.Main_item;
 import com.hustunique.Views.Pointwithcolor;
 
 public class MainListAdapter extends BaseAdapter{
 
 	private Context mcontext;
-	private ArrayList<Map<String,String>> mlist;
+	private ArrayList<Main_item> mlist;
 	
-	public MainListAdapter(Context context, ArrayList<Map<String,String>> list){
+	public MainListAdapter(Context context, ArrayList<Main_item> list){
 		this.mcontext=context;
 		this.mlist=list;
 	}
@@ -57,6 +58,9 @@ public class MainListAdapter extends BaseAdapter{
 		}else{
 			holder=(ViewHolder)arg1.getTag();
 		}
+
+        holder.mainlist_bookname.setText(mlist.get(arg0).item.get("bookname"));
+
 		return arg1;
 	}
 

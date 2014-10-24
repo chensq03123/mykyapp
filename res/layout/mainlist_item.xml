@@ -16,16 +16,16 @@
     	            android:layout_height="56dp"
     	            android:layout_marginTop="10dp"
     	            android:layout_marginBottom="10dp"
-    	            android:layout_marginLeft="24dp"
+    	            android:layout_marginLeft="36dp"
     	            android:layout_marginRight="24dp"
-    	              android:layout_gravity="center_horizontal" >
+    	            android:layout_gravity="center_horizontal" >
     	        </com.hustunique.Views.Pointwithcolor>
 
     	        <TextView
     	            android:id="@+id/mainlist_text"
     	            android:layout_width="match_parent"
     	            android:layout_height="match_parent"
-    	            android:layout_marginLeft="7dp"
+    	            android:layout_marginLeft="14dp"
     	            android:layout_gravity="center"
     	            android:textSize="30sp"
     	            android:textColor="#fff"
@@ -44,6 +44,7 @@
       		        android:id="@+id/chapter"
       		        android:layout_width="wrap_content"
       		        android:layout_height="wrap_content"
+                    android:textStyle="bold"
       		        android:textSize="18sp"
       		        android:layout_gravity="left"
       		        android:text="Chap.3 National Income"/>
@@ -52,6 +53,7 @@
       		        android:layout_width="wrap_content"
       		        android:layout_height="wrap_content"
       		        android:layout_gravity="left"
+                     android:textColor="#a8a8a8"
       		        android:text="Macroeconomics"/>
       		</LinearLayout>
     

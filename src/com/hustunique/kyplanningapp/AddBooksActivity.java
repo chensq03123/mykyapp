@@ -131,9 +131,6 @@ public class AddBooksActivity extends Activity{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		
-		
 			return null;
 		}
 		

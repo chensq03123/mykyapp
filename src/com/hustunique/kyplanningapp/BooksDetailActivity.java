@@ -30,7 +30,7 @@ public class BooksDetailActivity extends ActionBarActivity{
 		Initwidgets();
 		
 		 ArrayList<Map<String,String>> list=new ArrayList<Map<String,String>>();
-	        for(int i=0;i<200;i++){
+	        for(int i=0;i<20;i++){
 	        	HashMap<String, String> map=new HashMap<String, String>();
 	        	map.put(String.valueOf(i),"");
 	        	list.add(map);
@@ -44,8 +44,9 @@ public class BooksDetailActivity extends ActionBarActivity{
 				public void onItemClick(AdapterView<?> arg0, View arg1,
 						int arg2, long arg3) {
 					// TODO Auto-generated method stub
-						adapter.togle(arg2);
-						adapter.notifyDataSetInvalidated();
+						//adapter.togle(arg2);
+						//adapter.notifyDataSetInvalidated();
+					chapterlistview.setSelection(arg2);
 				}
 			});
 	

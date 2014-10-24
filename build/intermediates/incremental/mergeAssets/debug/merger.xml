@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="2" >
+
+    <dataSet config="unspecified" >
+        <source path="/home/chensq-ubuntu/workspace1/mykyapp/build/intermediates/exploded-aar/workspace1/appcompat_v7/unspecified/assets" />
+    </dataSet>
+    <dataSet config="main" >
+        <source path="/home/chensq-ubuntu/workspace1/mykyapp/assets" />
+    </dataSet>
+    <dataSet config="debug" >
+        <source path="/home/chensq-ubuntu/workspace1/mykyapp/build-types/debug/assets" />
+    </dataSet>
+
+</merger>
