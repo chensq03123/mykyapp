@@ -56,7 +56,7 @@ public class ChapExpandableListVIewAdapter  extends BaseExpandableListAdapter{
 			holder=(ViewHolder) arg3.getTag();
 			
 			holder.addtext.setText(mchildlist.get(arg0).get(arg1));
-			int color=Color.rgb(DataConstances.colors[colorindex][0], DataConstances.colors[colorindex][1], DataConstances.colors[colorindex][2]);
+			int color=Color.rgb(DataConstances.colors[colorindex], DataConstances.colors[colorindex], DataConstances.colors[colorindex]);
 			holder.addpoint.setColor(color);
 		
 		return arg3;
@@ -100,7 +100,7 @@ public class ChapExpandableListVIewAdapter  extends BaseExpandableListAdapter{
 			holder=(ViewHolder) arg2.getTag();
 			
 			holder.addtext.setText(mgrouplist.get(arg0));
-			int color=Color.rgb(DataConstances.colors[colorindex][0], DataConstances.colors[colorindex][1], DataConstances.colors[colorindex][2]);
+			int color=Color.rgb(DataConstances.colors[colorindex], DataConstances.colors[colorindex], DataConstances.colors[colorindex]);
 			holder.addpoint.setColor(color);
 		
 		return arg2;

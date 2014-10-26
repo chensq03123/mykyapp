@@ -6,10 +6,10 @@
     	
     	<com.hustunique.Views.Pointwithcolor 
     	    android:id="@+id/add_pointwithcolor"
-    	    android:layout_width="12dp"
-    	    android:layout_height="12dp"
+    	    android:layout_width="22dp"
+    	    android:layout_height="22dp"
     	    android:layout_gravity="center"
-    	    android:layout_marginLeft="40dp"
+    	    android:layout_marginLeft="48dp"
     	    />
 			
     		<TextView 

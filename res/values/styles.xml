@@ -17,4 +17,12 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="antionbar_def_style" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:displayOptions">useLogo</item>
+    </style>
+
+    <style name="Activitytheme_light" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/antionbar_def_style</item>
+    </style>
+
 </resources>

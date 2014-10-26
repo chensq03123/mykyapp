@@ -397,6 +397,16 @@
         <!-- Whether space should be reserved in layout when an icon is missing. -->
         <attr name="android:preserveIconSpacing" />
     </declare-styleable>
+    <!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/res/values/attrs.xml -->
+    <eat-comment />
+
+    <declare-styleable name="Pointwithcolor">
+        <attr name="pwidth" format="dimension" />
+        <attr name="pheight" format="dimension" />
+    </declare-styleable>
+    <!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/build/intermediates/exploded-aar/workspace1/appcompat_v7/unspecified/res/values/values.xml -->
+    <eat-comment />
+
     <declare-styleable name="SearchView">
 
         <!--
@@ -597,6 +607,10 @@
     <string name="hello_world">Hello world!</string>
     <!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/res/values/styles.xml -->
     <eat-comment />
+
+    <style name="Activitytheme_light" parent="android:Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/antionbar_def_style</item>
+    </style>
 
     <style name="AppBaseTheme" parent="Theme.AppCompat.Light">
         <!--
@@ -1323,5 +1337,11 @@
     <style name="Widget.AppCompat.ProgressBar.Horizontal" parent="Widget.AppCompat.Base.ProgressBar.Horizontal" />
 
     <style name="Widget.AppCompat.Spinner.DropDown.ActionBar" parent="Widget.AppCompat.Base.Spinner" />
+    <!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="antionbar_def_style" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:displayOptions">useLogo</item>
+    </style>
 
 </resources>

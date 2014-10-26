@@ -1,12 +1,9 @@
 package com.hustunique.kyplanningapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,21 +13,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
-import com.baoyz.swipemenulistview.SwipeMenuListView.OnMenuItemClickListener;
+
 import com.example.ggg.R;
 import com.hustunique.Adapters.MainListAdapter;
+import com.hustunique.Utils.Dbhelper;
 import com.hustunique.Utils.Main_item;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import com.baoyz.swipemenulistview.*;
 public class MainActivity extends ActionBarActivity {
 
 	
 	private SwipeMenuListView mainlist;
+    private ImageView add_bookbtn;
     private Main_item listitems,head,p1,temp_head,temp_currnext,temp_currpa;
     //private ArrayList<Map<String,String>> list;
     private ArrayList<Main_item> list;
@@ -40,7 +39,16 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
+        SharedPreferences sh=getSharedPreferences("mykyapp",0);
+        boolean Isfirstrun=sh.getBoolean("ISFIRSTRUN",true);
+        if(Isfirstrun){
+            Dbhelper.path=this.getFilesDir().toString();
+            Dbhelper.createTable();
+            sh.edit().putBoolean("ISFIRSTRUN",false).commit();
+        }
+
+
         InitWidgets();
         InitSwipeMenuListView(MainActivity.this);
         
@@ -52,6 +60,14 @@ public class MainActivity extends ActionBarActivity {
     	bar.setBackgroundDrawable(new ColorDrawable(Color.rgb(0x00, 0xe5, 0xee)));
     	bar.setTitle("kyplanning");
     	mainlist=(SwipeMenuListView)findViewById(R.id.main_listview);
+        add_bookbtn=(ImageView)findViewById(R.id.add_bookbtn);
+        add_bookbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MainActivity.this,BooksListActivity.class);
+                startActivity(intent);
+            }
+        });
     }
     
     /*
@@ -65,13 +81,15 @@ public class MainActivity extends ActionBarActivity {
 			public void create(SwipeMenu menu) {
 				// TODO Auto-generated method stub
 				SwipeMenuItem deleteitem=new SwipeMenuItem(mcontext);
-				deleteitem.setBackground(new  ColorDrawable(Color.YELLOW));
+				deleteitem.setBackground(R.drawable.trashcan);
 				deleteitem.setWidth(200);
+                deleteitem.setHeight(144);
 				menu.addMenuItem(deleteitem);
-				
+
 				SwipeMenuItem poptopitem=new SwipeMenuItem(mcontext);
-				poptopitem.setBackground(new ColorDrawable(Color.RED));
+				poptopitem.setBackground(R.drawable.tothetop);
 				poptopitem.setWidth(200);
+                poptopitem.setHeight(144);
 				menu.addMenuItem(poptopitem);	
 			}
 		};
@@ -104,20 +122,18 @@ public class MainActivity extends ActionBarActivity {
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 						long arg3) {
 					// TODO Auto-generated method stub
-					Intent intent=new Intent(MainActivity.this,BooksDetailActivity.class);
-					startActivity(intent);
-					Toast.makeText(MainActivity.this, "itemclick", 2000).show();
+
 				}
 			});
 	        mainlist.setMenuCreator(creator);
-	        mainlist.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+	        mainlist.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			
 			@Override
 			public boolean onMenuItemClick(int position, SwipeMenu menu, int index) {
 				// TODO Auto-generated method stub
                 switch(index){
-                    case 0:Popup(position);break;
-                    case 1:break;
+                    case 1:Popup(position);break;
+                    case 0:break;
                 }
 
 				return false;

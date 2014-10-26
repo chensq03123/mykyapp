@@ -5,6 +5,7 @@ dependencies {
     compile project(':appcompat_v7')
     compile files('libs/swipemenulistview.jar')
     compile files('libs/zxing.jar')
+    compile files('libs/SwipeMenuListView.jar')
 }
 
 android {

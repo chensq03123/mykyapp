@@ -15,7 +15,7 @@ import android.view.View;
 
 public class MyCircle extends View{
     private static int DIAMETER = 130; //Diameter英文为直径，该常量表示小圆直径的dp值
-    private static int STROKE_WIDTH = 15; // 该常量表示圆环宽度2倍的dp值
+    private static int STROKE_WIDTH = 25; // 该常量表示圆环宽度2倍的dp值
     
     private Paint mPaint;
     private float mProgress=300;// 表示进度

@@ -508,6 +508,16 @@ theme attribute (in the form
 containing a value of this type.
          */
         public static final int panelMenuListWidth=0x7f01004a;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int pheight=0x7f01006f;
         /**  Default PopupMenu style. 
          <p>Must be a reference to another resource, in the form "<code>@[+][<i>package</i>:]<i>type</i>:<i>name</i></code>"
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
@@ -541,6 +551,16 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
 or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>".
          */
         public static final int prompt=0x7f010051;
+        /** <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+         */
+        public static final int pwidth=0x7f01006e;
         /**  An optional query hint string to be displayed in the empty query field. 
          <p>Must be a string value, using '\\;' to escape characters such as '\\n' or '\\uxxxx' for a unicode character.
 <p>This may also be a reference to a resource (in the form
@@ -1082,6 +1102,12 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int bgn=0x7f020057;
         public static final int ic_launcher=0x7f020058;
+        public static final int next=0x7f020059;
+        public static final int plus=0x7f02005a;
+        public static final int rotate=0x7f02005b;
+        public static final int tick=0x7f02005c;
+        public static final int tothetop=0x7f02005d;
+        public static final int trashcan=0x7f02005e;
     }
     public static final class id {
         public static final int about_version_code=0x7f050028;
@@ -1096,34 +1122,47 @@ containing a value of this type.
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050034;
-        public static final int action_settings=0x7f050065;
+        public static final int action_settings=0x7f050072;
         public static final int activity_chooser_view_content=0x7f050035;
-        public static final int add_author=0x7f050055;
-        public static final int add_bookname=0x7f050054;
-        public static final int add_chapexplist=0x7f050059;
-        public static final int add_name=0x7f05005b;
-        public static final int add_pointwithcolor=0x7f05005a;
-        public static final int add_publisher=0x7f050056;
-        public static final int allbooks_list=0x7f05005c;
+        public static final int add_author=0x7f050058;
+        public static final int add_bookbtn=0x7f050054;
+        public static final int add_bookname=0x7f050057;
+        public static final int add_chapexplist=0x7f05005c;
+        public static final int add_name=0x7f05005e;
+        public static final int add_pointwithcolor=0x7f05005d;
+        public static final int add_publisher=0x7f050059;
+        public static final int addbook_btn=0x7f05004c;
+        public static final int addbook_complete=0x7f05004d;
+        public static final int allbooks_list=0x7f05005f;
         public static final int always=0x7f05000b;
         /**  Messages IDs 
          */
         public static final int auto_focus=0x7f05001a;
         public static final int beginning=0x7f050011;
-        public static final int button_back=0x7f050052;
-        public static final int chap_point=0x7f05005d;
-        public static final int chapname=0x7f05005e;
-        public static final int chapter=0x7f050063;
-        public static final int chapter_listview=0x7f050060;
+        public static final int bookslist_bookname=0x7f050062;
+        public static final int bookslist_booknamechar=0x7f050061;
+        public static final int bookslist_point=0x7f050060;
+        public static final int bookslist_progress=0x7f050063;
+        public static final int button_back=0x7f050055;
+        public static final int chap_point=0x7f050064;
+        public static final int chapname=0x7f050065;
+        public static final int chapter=0x7f050070;
+        public static final int chapter_listview=0x7f05006d;
         public static final int checkbox=0x7f05003d;
-        public static final int chprogress=0x7f050050;
+        public static final int chprogress=0x7f050052;
         public static final int collapseActionView=0x7f05000d;
-        public static final int colorselect_layout=0x7f050058;
+        public static final int colorselect_layout=0x7f05005b;
         public static final int decode=0x7f05001b;
         public static final int decode_failed=0x7f05001c;
         public static final int decode_succeeded=0x7f05001d;
         public static final int default_activity_button=0x7f050038;
-        public static final int deletebtn=0x7f05005f;
+        public static final int deletebtn=0x7f050066;
+        public static final int detail_author=0x7f05006b;
+        public static final int detail_bookname=0x7f050069;
+        public static final int detail_booknamechar=0x7f050068;
+        public static final int detail_point=0x7f050067;
+        public static final int detail_progress=0x7f05006a;
+        public static final int detail_publisher=0x7f05006c;
         public static final int dialog=0x7f05000e;
         public static final int disableHome=0x7f050008;
         public static final int dropdown=0x7f05000f;
@@ -1139,27 +1178,27 @@ containing a value of this type.
         public static final int icon=0x7f05003a;
         public static final int ifRoom=0x7f05000a;
         public static final int image=0x7f050037;
-        public static final int include1=0x7f05004e;
+        public static final int include1=0x7f050050;
         public static final int launch_product_query=0x7f050020;
         public static final int listMode=0x7f050001;
         public static final int list_item=0x7f050039;
-        public static final int main_listview=0x7f050051;
-        public static final int mainlist_point=0x7f050061;
-        public static final int mainlist_text=0x7f050062;
+        public static final int main_listview=0x7f050053;
+        public static final int mainlist_point=0x7f05006e;
+        public static final int mainlist_text=0x7f05006f;
         public static final int middle=0x7f050012;
-        public static final int nameofbook=0x7f050064;
+        public static final int nameofbook=0x7f050071;
         public static final int never=0x7f050009;
         public static final int none=0x7f050010;
         public static final int normal=0x7f050000;
-        public static final int preview_view=0x7f05004c;
-        public static final int progress=0x7f05004f;
+        public static final int preview_view=0x7f05004e;
+        public static final int progress=0x7f050051;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int quit=0x7f050021;
         public static final int radio=0x7f05003f;
         public static final int restart_preview=0x7f050022;
         public static final int return_scan_result=0x7f050023;
-        public static final int scan=0x7f050057;
+        public static final int scan=0x7f05005a;
         public static final int search_badge=0x7f050042;
         public static final int search_bar=0x7f050041;
         public static final int search_book_contents_failed=0x7f050024;
@@ -1180,12 +1219,12 @@ containing a value of this type.
         public static final int split_action_bar=0x7f05002e;
         public static final int submit_area=0x7f050049;
         public static final int tabMode=0x7f050002;
-        public static final int textview_title=0x7f050053;
+        public static final int textview_title=0x7f050056;
         public static final int title=0x7f05003b;
         public static final int top_action_bar=0x7f050030;
         public static final int up=0x7f050031;
         public static final int useLogo=0x7f050003;
-        public static final int viewfinder_view=0x7f05004d;
+        public static final int viewfinder_view=0x7f05004f;
         public static final int webview=0x7f050027;
         public static final int withText=0x7f05000c;
     }
@@ -1239,17 +1278,20 @@ containing a value of this type.
         public static final int abc_search_dropdown_item_icons_2line=0x7f030015;
         public static final int abc_search_view=0x7f030016;
         public static final int abc_simple_decor=0x7f030017;
-        public static final int activity_capture=0x7f030018;
-        public static final int activity_main=0x7f030019;
-        public static final int activity_title=0x7f03001a;
-        public static final int addbook_layout=0x7f03001b;
-        public static final int addbooklist_item=0x7f03001c;
-        public static final int allbooks_layout=0x7f03001d;
-        public static final int chapterlist_item=0x7f03001e;
-        public static final int chapters_layout=0x7f03001f;
-        public static final int editbooks_layout=0x7f030020;
-        public static final int mainlist_item=0x7f030021;
-        public static final int support_simple_spinner_dropdown_item=0x7f030022;
+        public static final int actionbar_port_booklist=0x7f030018;
+        public static final int actionbar_port_layout=0x7f030019;
+        public static final int activity_capture=0x7f03001a;
+        public static final int activity_main=0x7f03001b;
+        public static final int activity_title=0x7f03001c;
+        public static final int addbook_layout=0x7f03001d;
+        public static final int addbooklist_item=0x7f03001e;
+        public static final int allbooks_layout=0x7f03001f;
+        public static final int bookslist_item=0x7f030020;
+        public static final int chapterlist_item=0x7f030021;
+        public static final int chapters_layout=0x7f030022;
+        public static final int editbooks_layout=0x7f030023;
+        public static final int mainlist_item=0x7f030024;
+        public static final int support_simple_spinner_dropdown_item=0x7f030025;
     }
     public static final class menu {
         public static final int main=0x7f0c0000;
@@ -1300,6 +1342,7 @@ containing a value of this type.
         public static final int hello_world=0x7f0a000e;
     }
     public static final class style {
+        public static final int Activitytheme_light=0x7f0b008e;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -1528,6 +1571,7 @@ containing a value of this type.
         public static final int Widget_AppCompat_ProgressBar=0x7f0b000a;
         public static final int Widget_AppCompat_ProgressBar_Horizontal=0x7f0b0009;
         public static final int Widget_AppCompat_Spinner_DropDown_ActionBar=0x7f0b0022;
+        public static final int antionbar_def_style=0x7f0b008d;
     }
     public static final class styleable {
         /**  ============================================ 
@@ -2749,6 +2793,53 @@ containing a value of this type.
           @attr name android:windowAnimationStyle
         */
         public static final int MenuView_android_windowAnimationStyle = 0;
+        /** Attributes that can be used with a Pointwithcolor.
+           <p>Includes the following attributes:</p>
+           <table>
+           <colgroup align="left" />
+           <colgroup align="left" />
+           <tr><th>Attribute</th><th>Description</th></tr>
+           <tr><td><code>{@link #Pointwithcolor_pheight com.example.ggg:pheight}</code></td><td></td></tr>
+           <tr><td><code>{@link #Pointwithcolor_pwidth com.example.ggg:pwidth}</code></td><td></td></tr>
+           </table>
+           @see #Pointwithcolor_pheight
+           @see #Pointwithcolor_pwidth
+         */
+        public static final int[] Pointwithcolor = {
+            0x7f01006e, 0x7f01006f
+        };
+        /**
+          <p>This symbol is the offset where the {@link com.example.ggg.R.attr#pheight}
+          attribute's value can be found in the {@link #Pointwithcolor} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.ggg:pheight
+        */
+        public static final int Pointwithcolor_pheight = 1;
+        /**
+          <p>This symbol is the offset where the {@link com.example.ggg.R.attr#pwidth}
+          attribute's value can be found in the {@link #Pointwithcolor} array.
+
+
+          <p>Must be a dimension value, which is a floating point number appended with a unit such as "<code>14.5sp</code>".
+Available units are: px (pixels), dp (density-independent pixels), sp (scaled pixels based on preferred font size),
+in (inches), mm (millimeters).
+<p>This may also be a reference to a resource (in the form
+"<code>@[<i>package</i>:]<i>type</i>:<i>name</i></code>") or
+theme attribute (in the form
+"<code>?[<i>package</i>:][<i>type</i>:]<i>name</i></code>")
+containing a value of this type.
+          @attr name com.example.ggg:pwidth
+        */
+        public static final int Pointwithcolor_pwidth = 0;
         /** Attributes that can be used with a SearchView.
            <p>Includes the following attributes:</p>
            <table>

@@ -6,6 +6,7 @@
     android:orientation="vertical" >
     
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -13,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_weight="1"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:orientation="vertical">
         
         <TextView 
@@ -21,11 +22,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textSize="24sp"
             android:gravity="left"
             android:text="高等数学"
             />
         <TextView 
             android:id="@+id/add_author"
+            android:layout_marginTop="10dp"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="华中科技大学数学系"
@@ -33,6 +37,8 @@
         	
         <TextView 
             android:id="@+id/add_publisher"
+            android:layout_marginTop="5dp"
+            android:textSize="18sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="华中科技大学出版社"
@@ -41,7 +47,8 @@
         	<Button 
         	    android:id="@+id/scan"
         	    android:layout_width="wrap_content"
-        	    android:layout_height="match_parent"
+        	    android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
         	    android:text="扫一扫"/>
     </LinearLayout>
 
@@ -49,6 +56,7 @@
         android:id="@+id/colorselect_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
         android:orientation="horizontal" >
     </LinearLayout>
     
@@ -56,6 +64,9 @@
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="2dp"
 	    	android:background="#eee"/>
+
+
+
     <ExpandableListView 
         android:id="@+id/add_chapexplist"
         android:layout_width="fill_parent"

@@ -104,10 +104,21 @@
 	    	android:layout_width="fill_parent"
 	    	android:layout_height="2dp"
 	    	android:background="#eee"/>
-        
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <com.baoyz.swipemenulistview.SwipeMenuListView
             android:id="@+id/main_listview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"></com.baoyz.swipemenulistview.SwipeMenuListView>
-    
+        <ImageView
+            android:id="@+id/add_bookbtn"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/plus"
+            android:layout_gravity="bottom|right"
+            />
+    </FrameLayout>
 </LinearLayout>

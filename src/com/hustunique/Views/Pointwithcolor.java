@@ -1,6 +1,7 @@
 package com.hustunique.Views;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -8,14 +9,19 @@ import android.graphics.Paint.Style;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.example.ggg.R;
+
 public class Pointwithcolor  extends View{
 	
-	private int width=200;
-	private int height=200;
+	private float width=30;
+	private float height=30;
 	private Paint paint;
 	private int color=Color.GREEN;
 	public Pointwithcolor(Context context, AttributeSet attrs) {
 		super(context, attrs);
+        //TypedArray ta=context.obtainStyledAttributes(attrs, R.styleable.Pointwithcolor);
+        //this.height=ta.getDimension(R.styleable.Pointwithcolor_pheight,30);
+        //this.width=ta.getDimension(R.styleable.Pointwithcolor_pwidth,30);
 		paint=new Paint();
 		paint.setStyle(Style.FILL);
 		// TODO Auto-generated constructor stub
@@ -31,12 +37,16 @@ public class Pointwithcolor  extends View{
 	protected void onDraw(Canvas canvas) {
 		// TODO Auto-generated method stub
 		super.onDraw(canvas);
-		this.height=this.getHeight();
-		this.width=this.getWidth();
+		this.height=this.getHeight()==0?30:this.getHeight();
+		this.width=this.getWidth()==0?30:this.getWidth();
 		paint.setColor(this.color);
 		paint.setAntiAlias(true);
 		canvas.drawCircle(width/2 ,height/2, height/2, paint);
 	}
+
+    public int getColor(){
+        return this.color;
+    }
 
 	public void setColor(int color){
 		this.color=color;

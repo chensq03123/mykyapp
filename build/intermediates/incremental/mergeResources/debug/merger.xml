@@ -8331,6 +8331,18 @@ false
                 </dimen>
             </file>
             <file
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/values/attrs.xml"
+                qualifiers="" >
+                <declare-styleable name="Pointwithcolor" >
+                    <attr
+                        name="pwidth"
+                        format="dimension" />
+                    <attr
+                        name="pheight"
+                        format="dimension" />
+                </declare-styleable>
+            </file>
+            <file
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/values/strings.xml"
                 qualifiers="" >
                 <string name="hello_world" >Hello world!
@@ -8352,6 +8364,14 @@ false
                 </style>
 
                 <style
+                    name="Activitytheme_light"
+                    parent="android:Theme.Holo.Light" >
+                    <item name="android:actionBarStyle">
+@style/antionbar_def_style
+                    </item>
+                </style>
+
+                <style
                     name="AppBaseTheme"
                     parent="Theme.AppCompat.Light" >
 
@@ -8360,6 +8380,14 @@ false
             res/values-vXX/styles.xml, while customizations related to
             backward-compatibility can go here.
                     -->
+                </style>
+
+                <style
+                    name="antionbar_def_style"
+                    parent="@android:style/Widget.Holo.Light.ActionBar" >
+                    <item name="android:displayOptions">
+useLogo
+                    </item>
                 </style>
             </file>
             <file
@@ -8383,8 +8411,38 @@ false
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
+                name="tick"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/tick.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="next"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/next.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="trashcan"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/trashcan.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
                 name="bgn"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/bgn.jpg"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="plus"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/plus.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="rotate"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/rotate.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="tothetop"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/tothetop.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
@@ -8426,6 +8484,11 @@ false
                 </style>
             </file>
             <file
+                name="actionbar_port_booklist"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/actionbar_port_booklist.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="addbook_layout"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/addbook_layout.xml"
                 qualifiers=""
@@ -8451,18 +8514,23 @@ false
                 qualifiers=""
                 type="layout" />
             <file
-                name="editbooks_layout"
-                path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/editbooks_layout.xml"
-                qualifiers=""
-                type="layout" />
-            <file
                 name="activity_main"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/activity_main.xml"
                 qualifiers=""
                 type="layout" />
             <file
+                name="actionbar_port_layout"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/actionbar_port_layout.xml"
+                qualifiers=""
+                type="layout" />
+            <file
                 name="activity_title"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/activity_title.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="bookslist_item"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/bookslist_item.xml"
                 qualifiers=""
                 type="layout" />
             <file

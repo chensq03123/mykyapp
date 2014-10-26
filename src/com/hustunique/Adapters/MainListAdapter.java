@@ -5,6 +5,8 @@ import java.util.Map;
 
 import com.example.ggg.R;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.hustunique.Utils.DataConstances;
 import com.hustunique.Utils.Main_item;
 import com.hustunique.Views.Pointwithcolor;
 
@@ -60,7 +63,7 @@ public class MainListAdapter extends BaseAdapter{
 		}
 
         holder.mainlist_bookname.setText(mlist.get(arg0).item.get("bookname"));
-
+        holder.mianpoint_color.setColor(DataConstances.colors[arg0% DataConstances.colors.length]);
 		return arg1;
 	}
 
