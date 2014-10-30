@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ggg.R;
@@ -25,14 +27,15 @@ public class BooksListActivity extends Activity {
     private ArrayList<Map<String,String>> mlist;
     private ListView bookslistview;
     private BooksBaseAdapter madapter;
-    private Button addbtn;
+    private TextView addbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.allbooks_layout);
 
-        addbtn=(Button)findViewById(R.id.addbook_btn);
+        addbtn=(TextView)findViewById(R.id.addbook_btn);
         addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

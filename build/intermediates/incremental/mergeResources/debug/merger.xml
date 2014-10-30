@@ -8421,6 +8421,11 @@ useLogo
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
+                name="plusdarkened"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/plusdarkened.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
                 name="trashcan"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/trashcan.png"
                 qualifiers="mdpi-v4"
@@ -8443,6 +8448,11 @@ useLogo
             <file
                 name="tothetop"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/tothetop.png"
+                qualifiers="mdpi-v4"
+                type="drawable" />
+            <file
+                name="barcode"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/drawable-mdpi/barcode.png"
                 qualifiers="mdpi-v4"
                 type="drawable" />
             <file
@@ -8541,6 +8551,11 @@ useLogo
             <file
                 name="chapterlist_item"
                 path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/chapterlist_item.xml"
+                qualifiers=""
+                type="layout" />
+            <file
+                name="listview_footer"
+                path="/home/chensq-ubuntu/workspace1/mykyapp/res/layout/listview_footer.xml"
                 qualifiers=""
                 type="layout" />
             <file

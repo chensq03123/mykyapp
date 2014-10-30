@@ -10,16 +10,24 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -38,48 +46,27 @@ public class AddBooksActivity extends Activity{
 	private ExpandableListView chaplistview;
 	private ArrayList<String> grouplist;
 	private ArrayList<ArrayList<String>> childlist;
-	private Button scanbook,completebtn;
+	private ImageView scanbook;
 	private BookInfo book;
-	private TextView bookname,author,publisher; 
+    private EditText newchaptext;
+    private ImageView newchapbtn;
+	private EditText bookname,author,publisher;
+    private TextView addchaptext,completebtn;
 	private ChapExpandableListVIewAdapter adapter;
-	private View footer_add;
-    private LinearLayout Colorselect_layout;
+    private LinearLayout Colorselect_layout,Editchaplayout;
     private ArrayList<Pointwithcolor> colorlist;
-	private ActionBar actionBar;
+    private FrameLayout actionbar;
+    private boolean Isscan=false;
     private int colorselected=DataConstances.colors[0];
-
-
-    private void setActionBarLayout( int layoutId ){
-
-            actionBar = getActionBar( );
-
-        if( null != actionBar ){
-            actionBar.setDisplayShowHomeEnabled( false );
-            actionBar.setDisplayShowCustomEnabled(true);
-            LayoutInflater inflator = (LayoutInflater)   this.getSystemService(AddBooksActivity.this.LAYOUT_INFLATER_SERVICE);
-            View v = inflator.inflate(layoutId, null);
-            ActionBar.LayoutParams layout = new  ActionBar.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.FILL_PARENT);
-            actionBar.setCustomView(v,layout);
-
-        }
-
-    }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.addbook_layout);
-        setActionBarLayout(R.layout.actionbar_port_layout);
 		IniteWidgets();
-		/*for(int i=0;i<200;i++){
-				grouplist.add(String.valueOf(i));
-				ArrayList<String> templist=new ArrayList<String>();
-				for(int j=0;j<10;j++){
-					templist.add(String.valueOf(j));
-				}
-				childlist.add(templist);
-		}*/
+
 		scanbook.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -90,15 +77,53 @@ public class AddBooksActivity extends Activity{
 			}
 		});
 
-		adapter=new ChapExpandableListVIewAdapter(AddBooksActivity.this, grouplist, childlist);
-		chaplistview.addFooterView(footer_add);
+        LinearLayout footer= (LinearLayout) LayoutInflater.from(AddBooksActivity.this).inflate(R.layout.listview_footer,null);
+        Editchaplayout=(LinearLayout)footer.findViewById(R.id.editchap_layout);
+        addchaptext=(TextView)footer.findViewById(R.id.addchapter_tbtn);
+        newchapbtn=(ImageView)footer.findViewById(R.id.newchap_btn);
+        newchaptext=(EditText)footer.findViewById(R.id.addchap_text);
+        newchapbtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String chapstr=newchaptext.getText().toString().trim();
+                if(chapstr.compareTo("")==0){
+                    Toast.makeText(AddBooksActivity.this,"请输入文字",Toast.LENGTH_LONG).show();
+                }else{
+                    grouplist.add(chapstr);
+                    newchaptext.clearComposingText();
+                    Editchaplayout.setVisibility(View.GONE);
+                }
+            }
+        });
+        addchaptext.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Editchaplayout.setVisibility(View.VISIBLE);
+                newchaptext.requestFocus();
+                newchaptext.requestFocusFromTouch();
+                newchaptext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+                newchaptext.setSelection(newchaptext.getText().toString().length());
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.showSoftInput(newchaptext, 0);
+            }
+        });
+        adapter=new ChapExpandableListVIewAdapter(AddBooksActivity.this, grouplist, childlist,colorselected);
+		chaplistview.addFooterView(footer);
         chaplistview.setGroupIndicator(null);
 		chaplistview.setAdapter(adapter);
 
         completebtn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(grouplist.size()==0){
+                String booknamet=bookname.getText().toString();
+                String authort=author.getText().toString();
+                String publishert=publisher.getText().toString();
+                if(!Isscan){
+                    book.setname(booknamet);
+                    book.setauthor(authort);
+                    book.setpublisher(publishert);
+                }
+                if(grouplist.size()==0||book.getname().compareTo("")==0){
                     Toast.makeText(AddBooksActivity.this,"错误！还没填写书信息",Toast.LENGTH_LONG).show();
                 }else{
                     book.setcolor(colorselected);
@@ -106,6 +131,7 @@ public class AddBooksActivity extends Activity{
                     int id=Integer.parseInt(Dbhelper.querybookid("select * from book where bookname=\""+book.getname()+"\"",null));
                    for(int i=0;i<grouplist.size();i++){
                        Dbhelper.insertchap(grouplist.get(i),id);
+                       Log.i(grouplist.get(i),String.valueOf(id));
                    }
                 }
             }
@@ -114,32 +140,34 @@ public class AddBooksActivity extends Activity{
 	}
 	
 	private void IniteWidgets(){
+        book=new BookInfo();
 		chaplistview=(ExpandableListView)findViewById(R.id.add_chapexplist);
-		scanbook=(Button)findViewById(R.id.scan);
-		bookname=(TextView)findViewById(R.id.add_bookname);
-		author=(TextView)findViewById(R.id.add_author);
-		publisher=(TextView)findViewById(R.id.add_publisher);
+		scanbook=(ImageView)findViewById(R.id.scan);
+		bookname=(EditText)findViewById(R.id.add_bookname);
+		author=(EditText)findViewById(R.id.add_author);
+		publisher=(EditText)findViewById(R.id.add_publisher);
+        bookname.setOnClickListener(new OnEdittextclicklistenner());
+        author.setOnClickListener(new OnEdittextclicklistenner());
+        publisher.setOnClickListener(new OnEdittextclicklistenner());
 		grouplist=new ArrayList<String>();
 		childlist=new ArrayList<ArrayList<String>>();
-		footer_add=LayoutInflater.from(AddBooksActivity.this).inflate(R.layout.chapterlist_item, null);
         Colorselect_layout=(LinearLayout)findViewById(R.id.colorselect_layout);
 	    colorlist=new ArrayList<Pointwithcolor>();
-        completebtn=(Button)findViewById(R.id.addbook_complete);
+        actionbar=(FrameLayout)findViewById(R.id.chapterslayot_acitionbar);
+        completebtn=(TextView)findViewById(R.id.addbook_complete);
 	    for(int i=0;i<DataConstances.colors.length;i++){
 
             Pointwithcolor point=new Pointwithcolor(AddBooksActivity.this);
-           // ViewGroup.LayoutParams para=point.getLayoutParams();
-            //para.width=30;
-            //para.height=30;
-            //point.setLayoutParams(para);
             LinearLayout.LayoutParams layoutParams= new LinearLayout.LayoutParams(60,60);
             layoutParams.setMargins(10, 10, 10, 10);
             point.setColor(DataConstances.colors[i]);
             point.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    actionBar.setBackgroundDrawable(new ColorDrawable(((Pointwithcolor) view).getColor()));
+                    actionbar.setBackgroundDrawable(new ColorDrawable(((Pointwithcolor) view).getColor()));
                     colorselected=((Pointwithcolor) view).getColor();
+                    adapter.setColor(colorselected);
+                    adapter.notifyDataSetInvalidated();
                 }
             });
             point.setOnTouchListener(new View.OnTouchListener() {
@@ -165,7 +193,6 @@ public class AddBooksActivity extends Activity{
         }
 
     }
-
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -225,4 +252,18 @@ public class AddBooksActivity extends Activity{
 		}
 		
 	}	
+
+    private class OnEdittextclicklistenner implements OnClickListener{
+        @Override
+        public void onClick(View view) {
+            if(view instanceof  EditText) {
+                EditText t = (EditText) view;
+                t.setEnabled(true);
+                t.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+                t.setSelection(t.getText().toString().length());
+                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                imm.showSoftInput(t, 0);
+            }
+            }
+    }
 }

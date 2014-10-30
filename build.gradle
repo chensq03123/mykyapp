@@ -3,15 +3,14 @@ apply plugin: 'android'
 dependencies {
     compile fileTree(include: '*.jar', dir: 'libs')
     compile project(':appcompat_v7')
-    compile files('libs/swipemenulistview.jar')
     compile files('libs/zxing.jar')
     compile files('libs/SwipeMenuListView.jar')
+    compile files('libs/actionbarsherlock.jar')
 }
 
 android {
     compileSdkVersion 20
-    buildToolsVersion "20.0.0"
-
+    buildToolsVersion '20.0.0'
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -34,5 +33,10 @@ android {
         // by a similar customization.
         debug.setRoot('build-types/debug')
         release.setRoot('build-types/release')
+    }
+    defaultConfig {}
+    productFlavors {
+    }
+    buildTypes {
     }
 }

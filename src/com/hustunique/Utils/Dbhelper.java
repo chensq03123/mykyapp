@@ -101,7 +101,7 @@ public class Dbhelper {
 
     public static String querybookid(String sql,String temp){
         Vector<Vector<String>> result=query(sql);
-        String id=result.get(0).get(0);
+        String id=result.get(result.size()-1).get(0);
         return id;
     }
 

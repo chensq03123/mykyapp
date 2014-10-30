@@ -4,6 +4,34 @@
     android:layout_height="match_parent"
     android:background="#fff"
     android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/chapterslayot_acitionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/holo_blue_bright"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加书本"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:textColor="#fff"
+            android:textSize="24sp"/>
+
+        <TextView
+            android:layout_gravity="right"
+            android:layout_margin="14dp"
+            android:textSize="18sp"
+            android:textColor="#fff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addbook_complete"
+            android:text="完成"/>
+
+    </FrameLayout>
     
     <LinearLayout
 
@@ -17,39 +45,47 @@
         android:layout_marginLeft="30dp"
         android:orientation="vertical">
         
-        <TextView 
+        <EditText
             android:id="@+id/add_bookname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textSize="24sp"
+            android:background="@null"
+            android:textSize="18sp"
             android:gravity="left"
-            android:text="高等数学"
+            android:clickable="true"
+            android:focusable="true"
+
+            android:hint="点击输入书名"
             />
-        <TextView 
+        <EditText
             android:id="@+id/add_author"
             android:layout_marginTop="10dp"
-            android:textSize="18sp"
+            android:textSize="15sp"
+            android:background="@null"
+            android:clickable="true"
+            android:focusable="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="华中科技大学数学系"
+            android:hint="点击输入作者"
             />
         	
-        <TextView 
+        <EditText
             android:id="@+id/add_publisher"
             android:layout_marginTop="5dp"
-            android:textSize="18sp"
+            android:textSize="15sp"
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="华中科技大学出版社"
+            android:hint="点击输入出版社"
             />
         	</LinearLayout>
-        	<Button 
+        	<ImageView
         	    android:id="@+id/scan"
         	    android:layout_width="wrap_content"
         	    android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-        	    android:text="扫一扫"/>
+        	    android:src="@drawable/barcode"/>
     </LinearLayout>
 
     <LinearLayout

@@ -398,9 +398,8 @@ int layout allbooks_layout 0x7f03001f
 int layout bookslist_item 0x7f030020
 int layout chapterlist_item 0x7f030021
 int layout chapters_layout 0x7f030022
-int layout editbooks_layout 0x7f030023
-int layout mainlist_item 0x7f030024
-int layout support_simple_spinner_dropdown_item 0x7f030025
+int layout mainlist_item 0x7f030023
+int layout support_simple_spinner_dropdown_item 0x7f030024
 int menu main 0x7f0c0000
 int string abc_action_bar_home_description 0x7f0a0001
 int string abc_action_bar_up_description 0x7f0a0002

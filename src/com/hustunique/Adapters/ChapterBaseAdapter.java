@@ -33,7 +33,11 @@ public class ChapterBaseAdapter  extends BaseAdapter{
 		this.mlist=list;
         this.color=color;
 	}
-	
+
+    public void setColor(int color){
+        this.color=color;
+    }
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub

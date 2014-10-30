@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -38,6 +39,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
         SharedPreferences sh=getSharedPreferences("mykyapp",0);
@@ -56,9 +58,6 @@ public class MainActivity extends ActionBarActivity {
     }
     
     private void InitWidgets(){
-    	ActionBar bar=this.getActionBar();
-    	bar.setBackgroundDrawable(new ColorDrawable(Color.rgb(0x00, 0xe5, 0xee)));
-    	bar.setTitle("kyplanning");
     	mainlist=(SwipeMenuListView)findViewById(R.id.main_listview);
         add_bookbtn=(ImageView)findViewById(R.id.add_bookbtn);
         add_bookbtn.setOnClickListener(new View.OnClickListener() {

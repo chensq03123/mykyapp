@@ -11,6 +11,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -23,8 +24,7 @@ import com.hustunique.Utils.Dbhelper;
 import com.hustunique.Views.Pointwithcolor;
 
 public class BooksDetailActivity extends ActionBarActivity{
-	
-	private ActionBar bar;
+
 	private ListView chapterlistview;
     private Pointwithcolor largpoint;
     private TextView booknamechar,bookname,publisher,author,progress;
@@ -36,6 +36,7 @@ public class BooksDetailActivity extends ActionBarActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.chapters_layout);
 		Initwidgets();
         String id=getIntent().getStringExtra("BOOKSID");
@@ -51,8 +52,6 @@ public class BooksDetailActivity extends ActionBarActivity{
         publisher.setText(map.get("publisher"));
         author.setText(map.get("author"));
         progress.setText(map.get("chapcomp")+"/"+map.get("nofchap"));
-        android.app.ActionBar bar =getActionBar();
-        bar.setBackgroundDrawable(new ColorDrawable(this.color));
 
         Toast.makeText(BooksDetailActivity.this,id+"\\"+list.size(),Toast.LENGTH_LONG).show();
 	    final ChapterBaseAdapter adapter=new ChapterBaseAdapter(BooksDetailActivity.this, list,this.color);

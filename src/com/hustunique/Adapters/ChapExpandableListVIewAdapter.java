@@ -20,12 +20,13 @@ public class ChapExpandableListVIewAdapter  extends BaseExpandableListAdapter{
 		Context mcontext;
 		ArrayList<String> mgrouplist;
 		ArrayList<ArrayList<String>> mchildlist;
-		private int colorindex=0;
+        private int color=DataConstances.colors[0];
 	
-	public ChapExpandableListVIewAdapter(Context context,ArrayList<String> grouplist,ArrayList<ArrayList<String>> chilelist){
+	public ChapExpandableListVIewAdapter(Context context,ArrayList<String> grouplist,ArrayList<ArrayList<String>> chilelist,int color){
 				this.mchildlist=chilelist;
 				this.mgrouplist=grouplist;
 				this.mcontext=context;
+                this.color=color;
 	}
 	
 	@Override
@@ -56,8 +57,7 @@ public class ChapExpandableListVIewAdapter  extends BaseExpandableListAdapter{
 			holder=(ViewHolder) arg3.getTag();
 			
 			holder.addtext.setText(mchildlist.get(arg0).get(arg1));
-			int color=Color.rgb(DataConstances.colors[colorindex], DataConstances.colors[colorindex], DataConstances.colors[colorindex]);
-			holder.addpoint.setColor(color);
+		    holder.addpoint.setColor(color);
 		
 		return arg3;
 	}
@@ -100,7 +100,6 @@ public class ChapExpandableListVIewAdapter  extends BaseExpandableListAdapter{
 			holder=(ViewHolder) arg2.getTag();
 			
 			holder.addtext.setText(mgrouplist.get(arg0));
-			int color=Color.rgb(DataConstances.colors[colorindex], DataConstances.colors[colorindex], DataConstances.colors[colorindex]);
 			holder.addpoint.setColor(color);
 		
 		return arg2;
@@ -117,7 +116,11 @@ public class ChapExpandableListVIewAdapter  extends BaseExpandableListAdapter{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
+    public void setColor(int color){
+        this.color=color;
+    }
+
 	private class ViewHolder{
 		TextView addtext;
 		Pointwithcolor addpoint;
