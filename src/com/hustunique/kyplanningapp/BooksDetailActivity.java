@@ -1,34 +1,37 @@
 package com.hustunique.kyplanningapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import android.graphics.drawable.ColorDrawable;
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
+import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
+import android.view.animation.RotateAnimation;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ggg.R;
 import com.hustunique.Adapters.ChapterBaseAdapter;
+import com.hustunique.Utils.DataConstances;
 import com.hustunique.Utils.Dbhelper;
+import com.hustunique.Utils.Main_item;
 import com.hustunique.Views.Pointwithcolor;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class BooksDetailActivity extends ActionBarActivity{
 
 	private ListView chapterlistview;
     private Pointwithcolor largpoint;
     private TextView booknamechar,bookname,publisher,author,progress;
+    private TextView completebtn;
     private int color;
+    private RotateAnimation animation;
+    private  Map<String,String> map;
     ArrayList<Map<String,String>> list,booklist;
 
 
@@ -44,7 +47,7 @@ public class BooksDetailActivity extends ActionBarActivity{
 
         booklist=Dbhelper.querybook("select * from book where id="+id,null);
         list= Dbhelper.querychapter("select * from chaptable where bookid="+id,null);
-        Map<String,String> map=booklist.get(0);
+        map=booklist.get(0);
         color=Integer.valueOf(map.get("color"));
         largpoint.setColor(color);
         bookname.setText(map.get("bookname"));
@@ -52,23 +55,45 @@ public class BooksDetailActivity extends ActionBarActivity{
         publisher.setText(map.get("publisher"));
         author.setText(map.get("author"));
         progress.setText(map.get("chapcomp")+"/"+map.get("nofchap"));
-
-        Toast.makeText(BooksDetailActivity.this,id+"\\"+list.size(),Toast.LENGTH_LONG).show();
-	    final ChapterBaseAdapter adapter=new ChapterBaseAdapter(BooksDetailActivity.this, list,this.color);
+        final ChapterBaseAdapter adapter=new ChapterBaseAdapter(BooksDetailActivity.this, list,this.color);
 	    chapterlistview.setAdapter(adapter);
-	    chapterlistview.setOnItemClickListener(new OnItemClickListener() {
 
-		    @Override
-		    public void onItemClick(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// TODO Auto-generated method stub
-						adapter.togle(arg2);
-						adapter.notifyDataSetInvalidated();
-					//chapterlistview.setSelection(arg2);
+        completebtn.setOnClickListener(new View.OnClickListener() {
+            Main_item p1,p2;
+            @Override
+            public void onClick(View view) {
+                Main_item tag= DataConstances.header;
+                while(tag.item!=null){
+                    tag=tag.next;
+                }
+                p1=tag;
+                boolean[] tags=adapter.getSelections();
+                for(int i=0;i<list.size();i++){
+                    if(tags[i]){
+                        if(p1.item==null){
+                            HashMap<String,String> mapt=new HashMap<String, String>();
+                            mapt.put("chapname",list.get(i).get("chapname"));
+                            mapt.put("bookname",map.get("bookname"));
+                            mapt.put("color",map.get("color"));
+                            p1.item=mapt;
+                        }else{
+                            p2=new Main_item();
+                            HashMap<String,String> mapt=new HashMap<String, String>();
+                            mapt.put("chapname",list.get(i).get("chapname"));
+                            mapt.put("bookname",map.get("bookname"));
+                            mapt.put("color",map.get("color"));
+                            p2.item=mapt;
+                            p1.next=p2;
+                            p1=p2;
+                        }
+                    }
+                }
+                Intent intent =new Intent(DataConstances.ADDPLAN_ACTION);
+                sendBroadcast(intent);
+                BooksDetailActivity.this.finish();
 
-				}
-			});
-	
+            }
+        });
 	}
 
 	private void Initwidgets(){
@@ -79,6 +104,7 @@ public class BooksDetailActivity extends ActionBarActivity{
             publisher=(TextView)findViewById(R.id.detail_publisher);
             progress=(TextView)findViewById(R.id.detail_progress);
             largpoint=(Pointwithcolor)findViewById(R.id.detail_point);
+            completebtn=(TextView)findViewById(R.id.addplan_completebtn);
 	}
 	
 	@Override

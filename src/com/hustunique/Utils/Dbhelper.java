@@ -11,6 +11,7 @@ import java.util.Vector;
 
 public class Dbhelper {
     public static String path;
+
     public static SQLiteDatabase createorOpenDatabase(){
         SQLiteDatabase sld=null;
         try{
@@ -18,6 +19,7 @@ public class Dbhelper {
         }catch(Exception e){e.printStackTrace();}
         return sld;
     }
+
     public static void createTable(){
         SQLiteDatabase sld=createorOpenDatabase();
         try{
@@ -31,10 +33,18 @@ public class Dbhelper {
             sld.execSQL("create table if not exists chaptable(id Integer primary key autoincrement not null," +
                     "bookid Integer," +
                     "chapname varchar(100)," +
-                    "tag Integer)");
+                    "tag Integer," +
+                    "color Integer)");
+
+            sld.execSQL("create table if not exists maintable(id Integer primary key autoincrement not null," +
+                    "chapname varchar(100)," +
+                    "bookname varchar(100)," +
+                    "color Integer)");
+
             sld.close();
         }catch(Exception e){}
     }
+
     public static boolean insertbook(BookInfo book){
         SQLiteDatabase sld=createorOpenDatabase();
         String bookname=book.getname();
@@ -81,6 +91,22 @@ public class Dbhelper {
         return false;
     }
 
+    public static boolean insertmainitem(Main_item mainitem){
+        try{
+            String sql="insert into maintable(chapname,bookname,color) values(\""+mainitem.item.get("chapname")+"\",\""+mainitem.item.get("bookname")+"\","+mainitem.item.get("color")+")";
+            Log.i("sql",sql);
+            SQLiteDatabase sld=createorOpenDatabase();
+            sld.execSQL(sql);
+        }catch (Exception e){};
+        return false;
+    }
+
+    public static boolean cleartable(){
+        SQLiteDatabase sld=createorOpenDatabase();
+        sld.execSQL("delete from maintable");
+        sld.close();
+        return false;
+    }
 
     public static ArrayList<Map<String,String>> querybook(String sql,String temp){
         Vector<Vector<String>> result=query(sql);
@@ -94,6 +120,20 @@ public class Dbhelper {
             map.put("nofchap", result.get(i).get(4));
             map.put("chapcomp", result.get(i).get(5));
             map.put("color",result.get(i).get(6));
+            list.add(map);
+        }
+        return list;
+    }
+
+    public static ArrayList<Map<String,String>> querymaintable(String sql,String temp){
+        Vector<Vector<String>> result=query(sql);
+        ArrayList<Map<String,String>> list=new ArrayList<Map<String,String>>();
+        for(int i=0;i<result.size();i++){
+            Map<String,String> map=new HashMap<String, String>();
+            map.put("id",result.get(i).get(0));
+            map.put("bookname", result.get(i).get(2));
+            map.put("chapname", result.get(i).get(1));
+            map.put("color",result.get(i).get(3));
             list.add(map);
         }
         return list;
@@ -119,7 +159,6 @@ public class Dbhelper {
         Log.i("list",String.valueOf(list.size()));
         return list;
     }
-
 
     public static Vector<Vector<String>> query(String sql){
         Vector<Vector<String>> vector=new Vector<Vector<String>>();

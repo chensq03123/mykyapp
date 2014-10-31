@@ -19,7 +19,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="#fff"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_gravity="right"
@@ -27,7 +27,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:textColor="#fff"
+            android:textColor="@drawable/textviewbtn"
             android:id="@+id/addbook_btn"
             android:text="添加"/>
 

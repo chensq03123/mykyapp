@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="#eee"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -19,16 +19,18 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="#fff"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
 
         <TextView
             android:layout_gravity="right"
-            android:layout_margin="20dp"
-            android:textSize="20sp"
-            android:textColor="#fff"
+            android:layout_margin="14dp"
+            android:textSize="18sp"
+            android:textColor="@drawable/textviewbtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/addbook_btn"
+            android:id="@+id/addplan_completebtn"
+            android:clickable="true"
+            android:focusable="true"
             android:text="完成"/>
 
     </FrameLayout>
@@ -106,6 +108,7 @@
 		<ListView 
 		    android:id="@+id/chapter_listview"
 		    android:layout_width="match_parent"
-		    android:layout_height="match_parent"></ListView>
+		    android:layout_height="match_parent">
+		    </ListView>
 </LinearLayout>
 <!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/res/layout/chapters_layout.xml -->

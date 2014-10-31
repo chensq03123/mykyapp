@@ -20,6 +20,7 @@ import android.widget.ImageView;
 
 import com.example.ggg.R;
 import com.hustunique.Adapters.MainListAdapter;
+import com.hustunique.Utils.DataConstances;
 import com.hustunique.Utils.Dbhelper;
 import com.hustunique.Utils.Main_item;
 
@@ -42,13 +43,7 @@ public class MainActivity extends ActionBarActivity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-        SharedPreferences sh=getSharedPreferences("mykyapp",0);
-        boolean Isfirstrun=sh.getBoolean("ISFIRSTRUN",true);
-        if(Isfirstrun){
-            Dbhelper.path=this.getFilesDir().toString();
-            Dbhelper.createTable();
-            sh.edit().putBoolean("ISFIRSTRUN",false).commit();
-        }
+
 
 
         InitWidgets();
@@ -94,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
 		};
 		
 		 list=new ArrayList<Main_item>();
-	        for(int i=0;i<20;i++){
+	       /* for(int i=0;i<20;i++){
 	        	HashMap<String, String> map=new HashMap<String, String>();
 	        	map.put("bookname",String.valueOf(i));
                 if(i==0){
@@ -106,13 +101,13 @@ public class MainActivity extends ActionBarActivity {
                     p1.next=listitems;
                     p1=listitems;
                 }
-	        }
+	        }*/
+            head=DataConstances.header;
             p1=head;
             while(p1!=null){
                 list.add(p1);
                 p1=p1.next;
             }
-	        
 	        adapter=new MainListAdapter(MainActivity.this, list);
 	        mainlist.setAdapter(adapter);
 	        mainlist.setOnItemClickListener(new OnItemClickListener() {
@@ -154,7 +149,8 @@ public class MainActivity extends ActionBarActivity {
             p1=p1.next;
         }
         adapter.notifyDataSetChanged();
-
+        Intent intent=new Intent(DataConstances.POPULIST_ACTION);
+        sendBroadcast(intent);
     }
 
     private void Delete(int index){

@@ -34,7 +34,7 @@ public class MyCircle extends View{
     
     public MyCircle(Context context, AttributeSet attrs) {
         super(context, attrs);
-        processColor =Color.rgb(0x0, 0xE5, 0xEE);
+        processColor =Color.rgb(0x25, 0xdc, 0xca);
         init();
     }
     

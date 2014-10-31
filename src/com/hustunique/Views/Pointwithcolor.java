@@ -16,7 +16,7 @@ public class Pointwithcolor  extends View{
 	private float width=30;
 	private float height=30;
 	private Paint paint;
-	private int color=Color.GREEN;
+	private int color=Color.GRAY;
 	public Pointwithcolor(Context context, AttributeSet attrs) {
 		super(context, attrs);
         //TypedArray ta=context.obtainStyledAttributes(attrs, R.styleable.Pointwithcolor);

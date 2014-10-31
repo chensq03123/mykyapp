@@ -29,10 +29,12 @@ import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ggg.R;
+import com.hustunique.Adapters.ChapBaseAdapter;
 import com.hustunique.Adapters.ChapExpandableListVIewAdapter;
 import com.hustunique.Utils.BookInfo;
 import com.hustunique.Utils.DataConstances;
@@ -42,8 +44,8 @@ import com.hustunique.Utils.JsonHelper;
 import com.hustunique.Views.Pointwithcolor;
 
 public class AddBooksActivity extends Activity{
-	
-	private ExpandableListView chaplistview;
+
+	private ListView chaplistview;
 	private ArrayList<String> grouplist;
 	private ArrayList<ArrayList<String>> childlist;
 	private ImageView scanbook;
@@ -52,7 +54,7 @@ public class AddBooksActivity extends Activity{
     private ImageView newchapbtn;
 	private EditText bookname,author,publisher;
     private TextView addchaptext,completebtn;
-	private ChapExpandableListVIewAdapter adapter;
+	private ChapBaseAdapter adapter;
     private LinearLayout Colorselect_layout,Editchaplayout;
     private ArrayList<Pointwithcolor> colorlist;
     private FrameLayout actionbar;
@@ -90,26 +92,29 @@ public class AddBooksActivity extends Activity{
                     Toast.makeText(AddBooksActivity.this,"请输入文字",Toast.LENGTH_LONG).show();
                 }else{
                     grouplist.add(chapstr);
-                    newchaptext.clearComposingText();
-                    Editchaplayout.setVisibility(View.GONE);
+                    newchaptext.setText("");
+                   // Editchaplayout.setVisibility(View.GONE);
                 }
             }
         });
         addchaptext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                Editchaplayout.setVisibility(View.VISIBLE);
-                newchaptext.requestFocus();
-                newchaptext.requestFocusFromTouch();
-                newchaptext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-                newchaptext.setSelection(newchaptext.getText().toString().length());
-                InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                imm.showSoftInput(newchaptext, 0);
+                if(Editchaplayout.getVisibility()!=View.VISIBLE) {
+                    Editchaplayout.setVisibility(View.VISIBLE);
+                    newchaptext.requestFocus();
+                    newchaptext.requestFocusFromTouch();
+                    newchaptext.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+                    newchaptext.setSelection(newchaptext.getText().toString().length());
+                    InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(newchaptext, 0);
+                }else{
+                    Editchaplayout.setVisibility(View.GONE);
+                }
             }
         });
-        adapter=new ChapExpandableListVIewAdapter(AddBooksActivity.this, grouplist, childlist,colorselected);
+        adapter=new ChapBaseAdapter(AddBooksActivity.this, grouplist,colorselected);
 		chaplistview.addFooterView(footer);
-        chaplistview.setGroupIndicator(null);
 		chaplistview.setAdapter(adapter);
 
         completebtn.setOnClickListener(new OnClickListener() {
@@ -122,6 +127,7 @@ public class AddBooksActivity extends Activity{
                     book.setname(booknamet);
                     book.setauthor(authort);
                     book.setpublisher(publishert);
+                    book.setChapcount(grouplist.size());
                 }
                 if(grouplist.size()==0||book.getname().compareTo("")==0){
                     Toast.makeText(AddBooksActivity.this,"错误！还没填写书信息",Toast.LENGTH_LONG).show();
@@ -141,7 +147,7 @@ public class AddBooksActivity extends Activity{
 	
 	private void IniteWidgets(){
         book=new BookInfo();
-		chaplistview=(ExpandableListView)findViewById(R.id.add_chapexplist);
+		chaplistview=(ListView)findViewById(R.id.add_chapexplist);
 		scanbook=(ImageView)findViewById(R.id.scan);
 		bookname=(EditText)findViewById(R.id.add_bookname);
 		author=(EditText)findViewById(R.id.add_author);
@@ -191,7 +197,6 @@ public class AddBooksActivity extends Activity{
             colorlist.add(point);
             Colorselect_layout.addView(point,layoutParams);
         }
-
     }
 
 	@Override
@@ -233,17 +238,11 @@ public class AddBooksActivity extends Activity{
 			String catalogstr=book.getcatolog();
 			String[] catalarry=catalogstr.split("\n");
 			for(int i=0;i<catalarry.length;i++){
-				if(catalarry[i].contains("第")&&catalarry[i].contains("章")){
+				if(catalarry[i].contains("第")&&catalarry[i].contains("章"))
 					grouplist.add(catalarry[i]);
-					cl=new ArrayList<String>();
-					childlist.add(cl);
-				}else{
-					cl.add(catalarry[i]);
-				}
 			}
             book.setChapcount(grouplist.size());
-		
-			
+
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

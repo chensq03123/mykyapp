@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:descendantFocusability="blocksDescendants"
-    android:background="#fff"
     android:orientation="horizontal" >
     
     <com.hustunique.Views.Pointwithcolor
@@ -12,6 +10,7 @@
         android:layout_height="28dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="25dp"
+        android:focusable="false"
         android:layout_gravity="center_vertical"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"

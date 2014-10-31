@@ -7,6 +7,7 @@ import com.example.ggg.R;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class MainListAdapter extends BaseAdapter{
 		holder=new ViewHolder();
 		arg1= LayoutInflater.from(mcontext).inflate(R.layout.mainlist_item,null);
 		holder.mainlist_bookname=(TextView)arg1.findViewById(R.id.nameofbook);
-		holder.mainlist_chap=(TextView)arg1.findViewById(R.id.chprogress);
+		holder.mainlist_chap=(TextView)arg1.findViewById(R.id.chapter);
 		holder.mainpoint_text=(TextView)arg1.findViewById(R.id.mainlist_text);
 		holder.mianpoint_color=(Pointwithcolor)arg1.findViewById(R.id.mainlist_point);
 		arg1.setTag(holder);
@@ -63,7 +64,9 @@ public class MainListAdapter extends BaseAdapter{
 		}
 
         holder.mainlist_bookname.setText(mlist.get(arg0).item.get("bookname"));
-        holder.mianpoint_color.setColor(DataConstances.colors[arg0% DataConstances.colors.length]);
+        holder.mianpoint_color.setColor(Integer.parseInt(mlist.get(arg0).item.get("color")));
+        holder.mainlist_chap.setText(mlist.get(arg0).item.get("chapname"));
+        holder.mainpoint_text.setText(mlist.get(arg0).item.get("bookname").substring(0,1));
 		return arg1;
 	}
 

@@ -9,7 +9,7 @@
      android:id="@+id/mianlayot_acitionbar"
      android:layout_width="match_parent"
      android:layout_height="wrap_content"
-     android:background="@android:color/holo_blue_bright"
+     android:background="#25dcca"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -19,7 +19,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:textColor="#fff"
-            android:textSize="24sp"/>
+            android:textSize="20sp"/>
         </FrameLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
             <com.hustunique.Views.MyCircle
                 android:layout_width="50dp"
                	android:layout_marginTop="20dp"
-               	android:layout_marginLeft="25dp"
+               	android:layout_marginLeft="16dp"
                	android:layout_marginBottom="20dp"
                 android:layout_height="50dp" >
             </com.hustunique.Views.MyCircle>
@@ -46,8 +46,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="14dp"
-                android:textColor="#00e5ee"
-                android:textSize="24sp"
+                android:textColor="#25dcca"
+                android:textSize="28sp"
                 android:text="20%"/>
             
             <TextView 
@@ -55,9 +55,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|center"
-                android:layout_marginBottom="25dp"
-                android:layout_marginLeft="14dp"
-                android:textColor="#00e5ee"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="8dp"
+                android:textColor="#25dcca"
                 android:text="2/10"/>
             
         </FrameLayout>
@@ -96,7 +96,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#00e5ee"
+                    android:textColor="#25dcca"
                      android:textSize="23sp"
                     android:text="210" />
 					
@@ -132,7 +132,7 @@
             android:layout_height="75dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/plus"
+            android:src="@drawable/addplanselector"
             android:layout_gravity="bottom|right"
             />
     </FrameLayout>

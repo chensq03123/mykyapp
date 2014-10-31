@@ -33,7 +33,7 @@
         <com.hustunique.Views.Pointwithcolor
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginLeft="45dp"
+            android:layout_marginLeft="40dp"
             android:layout_gravity="center_vertical"
             />
         <TextView
