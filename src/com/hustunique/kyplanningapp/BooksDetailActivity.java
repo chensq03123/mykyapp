@@ -1,6 +1,8 @@
 package com.hustunique.kyplanningapp;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.ActionBarActivity;
@@ -8,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.RotateAnimation;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +21,7 @@ import com.hustunique.Utils.DataConstances;
 import com.hustunique.Utils.Dbhelper;
 import com.hustunique.Utils.Main_item;
 import com.hustunique.Views.Pointwithcolor;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +45,19 @@ public class BooksDetailActivity extends ActionBarActivity{
 		super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.chapters_layout);
-		Initwidgets();
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            // Holo light action bar color is #DDDDDD
+            int actionBarColor = Color.rgb(0x25, 0xdc, 0xca);
+            tintManager.setTintColor(actionBarColor);
+        }
+
+        Initwidgets();
+
+
         String id=getIntent().getStringExtra("BOOKSID");
 
 
@@ -63,7 +79,7 @@ public class BooksDetailActivity extends ActionBarActivity{
             @Override
             public void onClick(View view) {
                 Main_item tag= DataConstances.header;
-                while(tag.item!=null){
+                while(tag.next!=null&&tag.item!=null){
                     tag=tag.next;
                 }
                 p1=tag;
@@ -74,14 +90,14 @@ public class BooksDetailActivity extends ActionBarActivity{
                             HashMap<String,String> mapt=new HashMap<String, String>();
                             mapt.put("chapname",list.get(i).get("chapname"));
                             mapt.put("bookname",map.get("bookname"));
-                            mapt.put("color",map.get("color"));
+                            mapt.put("color",String.valueOf(color));
                             p1.item=mapt;
                         }else{
                             p2=new Main_item();
                             HashMap<String,String> mapt=new HashMap<String, String>();
                             mapt.put("chapname",list.get(i).get("chapname"));
                             mapt.put("bookname",map.get("bookname"));
-                            mapt.put("color",map.get("color"));
+                            mapt.put("color",String.valueOf(color));
                             p2.item=mapt;
                             p1.next=p2;
                             p1=p2;

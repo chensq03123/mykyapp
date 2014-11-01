@@ -6,16 +6,20 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 import com.example.ggg.R;
@@ -27,6 +31,8 @@ import com.hustunique.Utils.Main_item;
 import java.util.ArrayList;
 import java.util.HashMap;
 import com.baoyz.swipemenulistview.*;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
 public class MainActivity extends ActionBarActivity {
 
 	
@@ -36,20 +42,39 @@ public class MainActivity extends ActionBarActivity {
     //private ArrayList<Map<String,String>> list;
     private ArrayList<Main_item> list;
     MainListAdapter adapter;
-	
+
+    @Override
+    protected void onRestart() {
+        super.onResume();
+
+        head=DataConstances.header;
+        p1=head;
+        list.clear();
+        while(p1!=null&&p1.item!=null){
+            list.add(p1);
+            p1=p1.next;
+        }
+        adapter.notifyDataSetChanged();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main);
 
-
-
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            // Holo light action bar color is #DDDDDD
+            int actionBarColor = Color.rgb(0x25,0xdc,0xca);
+            tintManager.setTintColor(actionBarColor);
+        }
 
         InitWidgets();
         InitSwipeMenuListView(MainActivity.this);
-        
-      
+
     }
     
     private void InitWidgets(){
@@ -89,26 +114,14 @@ public class MainActivity extends ActionBarActivity {
 		};
 		
 		 list=new ArrayList<Main_item>();
-	       /* for(int i=0;i<20;i++){
-	        	HashMap<String, String> map=new HashMap<String, String>();
-	        	map.put("bookname",String.valueOf(i));
-                if(i==0){
-                    head=p1=listitems=new Main_item();
-                    p1.item=map;
-                }else{
-                    listitems=new Main_item();
-                    listitems.item=map;
-                    p1.next=listitems;
-                    p1=listitems;
-                }
-	        }*/
             head=DataConstances.header;
             p1=head;
-            while(p1!=null){
+            while(p1!=null&&p1.item!=null){
                 list.add(p1);
                 p1=p1.next;
             }
-	        adapter=new MainListAdapter(MainActivity.this, list);
+        Log.i("oncreate",String.valueOf(list.size()));
+        adapter=new MainListAdapter(MainActivity.this, list);
 	        mainlist.setAdapter(adapter);
 	        mainlist.setOnItemClickListener(new OnItemClickListener() {
 
@@ -127,7 +140,7 @@ public class MainActivity extends ActionBarActivity {
 				// TODO Auto-generated method stub
                 switch(index){
                     case 1:Popup(position);break;
-                    case 0:break;
+                    case 0:Delete(position);break;
                 }
 
 				return false;
@@ -136,25 +149,43 @@ public class MainActivity extends ActionBarActivity {
     }
 
     private void Popup(int index){
-         temp_currpa=list.get(index-1);
-         temp_currnext=list.get(index).next;
-        temp_currpa.next=temp_currnext;
-        temp_head=list.get(index);
-        temp_head.next=head;
-        head=temp_head;
-        p1=head;
-        list.clear();
-        while(p1!=null){
-            list.add(p1);
-            p1=p1.next;
-        }
-        adapter.notifyDataSetChanged();
-        Intent intent=new Intent(DataConstances.POPULIST_ACTION);
-        sendBroadcast(intent);
+        if(index!=0) {
+            temp_currpa = list.get(index - 1);
+            temp_currnext = list.get(index).next;
+            temp_currpa.next = temp_currnext;
+            temp_head = list.get(index);
+            temp_head.next = head;
+            head = temp_head;
+            p1 = head;
+            DataConstances.header = head;
+            list.clear();
+            while (p1 != null) {
+                list.add(p1);
+                p1 = p1.next;
+            }
+            adapter.notifyDataSetChanged();
+            Intent intent = new Intent(DataConstances.POPULIST_ACTION);
+            sendBroadcast(intent);
+        }else
+            Toast.makeText(MainActivity.this,"已经是最顶项了",Toast.LENGTH_SHORT).show();
     }
 
     private void Delete(int index){
-
+        if(index==0){
+            DataConstances.header=DataConstances.header.next;
+        }else {
+            Main_item temp = list.get(index - 1);
+            temp.next = list.get(index).next;
+        }
+            p1 =DataConstances.header;
+            list.clear();
+            while (p1 != null) {
+                list.add(p1);
+                p1 = p1.next;
+            }
+            adapter.notifyDataSetChanged();
+            Intent intent = new Intent(DataConstances.POPULIST_ACTION);
+            sendBroadcast(intent);
     }
 
 
@@ -176,4 +207,6 @@ public class MainActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }

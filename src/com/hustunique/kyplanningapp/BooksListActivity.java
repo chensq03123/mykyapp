@@ -2,10 +2,14 @@ package com.hustunique.kyplanningapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -15,6 +19,7 @@ import android.widget.Toast;
 import com.example.ggg.R;
 import com.hustunique.Adapters.BooksBaseAdapter;
 import com.hustunique.Utils.Dbhelper;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -28,12 +33,22 @@ public class BooksListActivity extends Activity {
     private ListView bookslistview;
     private BooksBaseAdapter madapter;
     private TextView addbtn;
+    private MyAsyncTask task;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.allbooks_layout);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            // Holo light action bar color is #DDDDDD
+            int actionBarColor = Color.rgb(0x25,0xdc,0xca);
+            tintManager.setTintColor(actionBarColor);
+        }
 
         addbtn=(TextView)findViewById(R.id.addbook_btn);
         addbtn.setOnClickListener(new View.OnClickListener() {
@@ -43,8 +58,10 @@ public class BooksListActivity extends Activity {
                 startActivity(intent);
             }
         });
+        mlist= Dbhelper.querybook("select * from book",null);
+        madapter = new BooksBaseAdapter(BooksListActivity.this, mlist);
         bookslistview=(ListView)findViewById(R.id.allbooks_list);
-        new MyAsyncTask().execute();
+        bookslistview.setAdapter(madapter);
         bookslistview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -60,15 +77,32 @@ public class BooksListActivity extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
             mlist= Dbhelper.querybook("select * from book",null);
+            Log.i("asynctast",String.valueOf(mlist.size()));
             return null;
         }
 
         @Override
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
-            madapter=new BooksBaseAdapter(BooksListActivity.this,mlist);
-            bookslistview.setAdapter(madapter);
+            if(madapter==null) {
+                madapter = new BooksBaseAdapter(BooksListActivity.this, mlist);
+                bookslistview.setAdapter(madapter);
+                Log.i("asynctasttrue",String.valueOf(mlist.size()));
+            }else{
+                madapter.notifyDataSetChanged();
+                madapter.notifyDataSetInvalidated();
+                bookslistview.setAdapter(madapter);
+                Log.i("asynctastflase",String.valueOf(mlist.size()));
+            }
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("tag","onresume");
+        mlist= Dbhelper.querybook("select * from book",null);
+        madapter.notifyDataSetChanged();
+        madapter.notifyDataSetInvalidated();
+    }
 }

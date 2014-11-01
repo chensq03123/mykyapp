@@ -9,5 +9,6 @@ public class DataConstances {
     public final static String ADDPLAN_ACTION="ADD_PLAN";
     public final static String POPULIST_ACTION="POP_LIST";
     public static Main_item header;
+    public final int DURATION=2000;
 
 }

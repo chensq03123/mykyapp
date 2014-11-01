@@ -12,16 +12,20 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +46,7 @@ import com.hustunique.Utils.Dbhelper;
 import com.hustunique.Utils.HttpHelper;
 import com.hustunique.Utils.JsonHelper;
 import com.hustunique.Views.Pointwithcolor;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class AddBooksActivity extends Activity{
 
@@ -52,14 +57,15 @@ public class AddBooksActivity extends Activity{
 	private BookInfo book;
     private EditText newchaptext;
     private ImageView newchapbtn;
-	private EditText bookname,author,publisher;
-    private TextView addchaptext,completebtn;
+	private EditText addchaptext,bookname,author,publisher;
+    private TextView completebtn;
 	private ChapBaseAdapter adapter;
     private LinearLayout Colorselect_layout,Editchaplayout;
     private ArrayList<Pointwithcolor> colorlist;
     private FrameLayout actionbar;
     private boolean Isscan=false;
     private int colorselected=DataConstances.colors[0];
+    private  SystemBarTintManager tintm;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +73,14 @@ public class AddBooksActivity extends Activity{
 		super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.addbook_layout);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+            tintManager.setStatusBarTintEnabled(true);
+            // Holo light action bar color is #DDDDDD
+            int actionBarColor = Color.rgb(0x25,0xdc,0xca);
+            tintManager.setTintColor(actionBarColor);
+        }
 		IniteWidgets();
 
 		scanbook.setOnClickListener(new OnClickListener() {
@@ -81,7 +95,27 @@ public class AddBooksActivity extends Activity{
 
         LinearLayout footer= (LinearLayout) LayoutInflater.from(AddBooksActivity.this).inflate(R.layout.listview_footer,null);
         Editchaplayout=(LinearLayout)footer.findViewById(R.id.editchap_layout);
-        addchaptext=(TextView)footer.findViewById(R.id.addchapter_tbtn);
+        addchaptext=(EditText)footer.findViewById(R.id.addchapter_tbtn);
+        addchaptext.setOnClickListener(new OnEdittextclicklistenner());
+        addchaptext.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                if (i == KeyEvent.KEYCODE_ENTER&&keyEvent.getAction()==KeyEvent.ACTION_DOWN) {
+                    String chapstr = addchaptext.getText().toString().trim();
+                    if (chapstr.compareTo("") == 0) {
+                       // Toast.makeText(AddBooksActivity.this, "请输入文字", Toast.LENGTH_LONG).show();
+                        InputMethodManager imm = (InputMethodManager) getSystemService(AddBooksActivity.this.INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromInputMethod(AddBooksActivity.this.getCurrentFocus().getWindowToken(),InputMethodManager.HIDE_NOT_ALWAYS);
+
+                    }else {
+                        grouplist.add(chapstr);
+                        addchaptext.setText("");
+                        // Editchaplayout.setVisibility(View.GONE);
+                    }
+                }
+                return false;
+            }
+        });
         newchapbtn=(ImageView)footer.findViewById(R.id.newchap_btn);
         newchaptext=(EditText)footer.findViewById(R.id.addchap_text);
         newchapbtn.setOnClickListener(new OnClickListener() {
@@ -97,7 +131,7 @@ public class AddBooksActivity extends Activity{
                 }
             }
         });
-        addchaptext.setOnClickListener(new OnClickListener() {
+       /* addchaptext.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(Editchaplayout.getVisibility()!=View.VISIBLE) {
@@ -112,7 +146,7 @@ public class AddBooksActivity extends Activity{
                     Editchaplayout.setVisibility(View.GONE);
                 }
             }
-        });
+        });*/
         adapter=new ChapBaseAdapter(AddBooksActivity.this, grouplist,colorselected);
 		chaplistview.addFooterView(footer);
 		chaplistview.setAdapter(adapter);
@@ -137,9 +171,11 @@ public class AddBooksActivity extends Activity{
                     int id=Integer.parseInt(Dbhelper.querybookid("select * from book where bookname=\""+book.getname()+"\"",null));
                    for(int i=0;i<grouplist.size();i++){
                        Dbhelper.insertchap(grouplist.get(i),id);
-                       Log.i(grouplist.get(i),String.valueOf(id));
                    }
+                    AddBooksActivity.this.finish();
                 }
+
+
             }
         });
 
@@ -155,6 +191,7 @@ public class AddBooksActivity extends Activity{
         bookname.setOnClickListener(new OnEdittextclicklistenner());
         author.setOnClickListener(new OnEdittextclicklistenner());
         publisher.setOnClickListener(new OnEdittextclicklistenner());
+
 		grouplist=new ArrayList<String>();
 		childlist=new ArrayList<ArrayList<String>>();
         Colorselect_layout=(LinearLayout)findViewById(R.id.colorselect_layout);

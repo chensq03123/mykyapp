@@ -16,8 +16,8 @@
             android:layout_height="56dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="36dp"
-            android:layout_marginRight="24dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_gravity="center_horizontal" >
         </com.hustunique.Views.Pointwithcolor>
 
@@ -25,7 +25,7 @@
             android:id="@+id/bookslist_booknamechar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="14dp"
+            android:layout_marginLeft="1dp"
             android:layout_gravity="center"
             android:textSize="30sp"
             android:textColor="#fff"
@@ -34,10 +34,11 @@
     </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:layout_marginLeft="5dp"
+        android:layout_weight="1"
         android:orientation="vertical"
         >
         <TextView
@@ -45,18 +46,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:layout_gravity="left"
             android:text="Chap.3 National Income"/>
         <TextView
             android:id="@+id/bookslist_progress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:layout_gravity="left"
+            android:textSize="13sp"
             android:textColor="#a8a8a8"
             android:text="Macroeconomics"/>
     </LinearLayout>
 
+    <ImageView
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/next"/>
 
 </LinearLayout>
 <!-- From: file:/home/chensq-ubuntu/workspace1/mykyapp/res/layout/bookslist_item.xml -->

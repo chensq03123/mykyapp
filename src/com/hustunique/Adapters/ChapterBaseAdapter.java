@@ -35,6 +35,7 @@ public class ChapterBaseAdapter  extends BaseAdapter{
 	public ChapterBaseAdapter(Context context,ArrayList<Map<String,String>> list,int color){
 		this.mcontext=context;
 		this.mlist=list;
+        this.color=color;
         tags=new boolean[mlist.size()];
         for(int i=0;i<mlist.size();i++)
             tags[i]=false;
@@ -82,7 +83,7 @@ public class ChapterBaseAdapter  extends BaseAdapter{
         animation.setDuration(900);
         holder.chapname.setText(mlist.get(arg0).get("chapname"));
         holder.img.setImageResource(R.drawable.rotate);
-        holder.point.setColor(color);
+        holder.point.setColor(this.color);
         holder.img.setVisibility(View.VISIBLE);
         holder.img.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +129,6 @@ public class ChapterBaseAdapter  extends BaseAdapter{
 			arg1.setBackgroundColor(Color.WHITE);
 
 		}*/
-
 		return arg1;
 	}
 	
