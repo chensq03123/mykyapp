@@ -1,15 +1,13 @@
 package com.hustunique.kyplanningapp;
 
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,21 +15,17 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
+import com.baoyz.swipemenulistview.*;
 import com.example.ggg.R;
 import com.hustunique.Adapters.MainListAdapter;
 import com.hustunique.Utils.DataConstances;
-import com.hustunique.Utils.Dbhelper;
 import com.hustunique.Utils.Main_item;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import com.baoyz.swipemenulistview.*;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -94,21 +88,21 @@ public class MainActivity extends ActionBarActivity {
      * */
     private void InitSwipeMenuListView(Context context){
     	final Context mcontext=context;
-    	SwipeMenuCreator creator=new SwipeMenuCreator() {
+    	final SwipeMenuCreator creator=new SwipeMenuCreator() {
 			
 			@Override
 			public void create(SwipeMenu menu) {
 				// TODO Auto-generated method stub
 				SwipeMenuItem deleteitem=new SwipeMenuItem(mcontext);
 				deleteitem.setBackground(R.drawable.trashcan);
-				deleteitem.setWidth(200);
-                deleteitem.setHeight(144);
+				deleteitem.setWidth(dp2px(100));
+                deleteitem.setHeight(dp2px(72));
 				menu.addMenuItem(deleteitem);
 
 				SwipeMenuItem poptopitem=new SwipeMenuItem(mcontext);
 				poptopitem.setBackground(R.drawable.tothetop);
-				poptopitem.setWidth(200);
-                poptopitem.setHeight(144);
+				poptopitem.setWidth(dp2px(100));
+                poptopitem.setHeight(dp2px(72));
 				menu.addMenuItem(poptopitem);	
 			}
 		};
@@ -123,15 +117,6 @@ public class MainActivity extends ActionBarActivity {
         Log.i("oncreate",String.valueOf(list.size()));
         adapter=new MainListAdapter(MainActivity.this, list);
 	        mainlist.setAdapter(adapter);
-	        mainlist.setOnItemClickListener(new OnItemClickListener() {
-
-				@Override
-				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
-						long arg3) {
-					// TODO Auto-generated method stub
-
-				}
-			});
 	        mainlist.setMenuCreator(creator);
 	        mainlist.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
 			
@@ -146,6 +131,17 @@ public class MainActivity extends ActionBarActivity {
 				return false;
 			}
 		});
+        mainlist.setOnRightFlingListener(new SwipeMenuListView.OnrightFlingListener() {
+            @Override
+            public boolean onRightFling(int i, float v, float v2, float v3) {
+
+                if(i==mainlist.pointToPosition((int)v2,(int)v3)&&v>100){
+                    Toast.makeText(MainActivity.this,list.get(i).item.get("chapname"),Toast.LENGTH_LONG).show();
+                }
+
+                return false;
+            }
+        });
     }
 
     private void Popup(int index){
@@ -188,6 +184,11 @@ public class MainActivity extends ActionBarActivity {
             sendBroadcast(intent);
     }
 
+    private void completeplan(int index){
+        int id=Integer.parseInt(list.get(index).item.get("id"));
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -208,5 +209,9 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private int dp2px(int dp) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
+    }
 
 }
